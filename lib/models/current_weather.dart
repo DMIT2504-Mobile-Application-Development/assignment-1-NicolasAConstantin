@@ -28,4 +28,58 @@ class CurrentWeather {
     _sunrise = sunrise;
     _sunset = sunset;
   }
+
+  set city(String value) {
+    if (value.trim().isEmpty) {
+      throw Exception('City cannot be empty');
+    }
+    _city = value;
+  }
+
+  set currentTemp(double value) {
+    if (value < -100 || value > 100) {
+      throw Exception('Temperature must be between -100 and 100');
+    }
+    _currentTemp = value;
+  }
+
+  set currentTime(DateTime value) {
+    if (value.isAfter(DateTime.now())) {
+      throw Exception('Current time cannot be in the future');
+    }
+    _currentTime = value;
+  }
+
+  set sunrise(DateTime value) {
+    if (value.day != _currentTime.day ||
+        value.month != _currentTime.month ||
+        value.year != _currentTime.year){
+
+  throw Exception('Sunrise must be on the same day as current time');
+    }
+
+  if (value.isAfter(_sunset))
+  {
+    throw Exception('Sunrise cannot be after sunset');
+}
+    _sunrise = value;
+  }
+
+
+  set sunset(DateTime value) {
+    if (value.day != _currentTime.day ||
+        value.month != _currentTime.month ||
+        value.year != _currentTime.year){
+
+      throw Exception('Sunset must be on the same day as current time');
+    }
+
+    if (value.isBefore(_sunrise))
+    {
+      throw Exception('Sunset cannot be before sunrise');
+    }
+    _sunset = value;
+  }
+
+
 }
