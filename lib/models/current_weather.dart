@@ -53,33 +53,33 @@ class CurrentWeather {
   set sunrise(DateTime value) {
     if (value.day != _currentTime.day ||
         value.month != _currentTime.month ||
-        value.year != _currentTime.year){
-
-  throw Exception('Sunrise must be on the same day as current time');
+        value.year != _currentTime.year) {
+      throw Exception('Sunrise must be on the same day as current time');
     }
 
-  if (value.isAfter(_sunset))
-  {
-    throw Exception('Sunrise cannot be after sunset');
-}
+    if (value.isAfter(_sunset)) {
+      throw Exception('Sunrise cannot be after sunset');
+    }
     _sunrise = value;
   }
-
 
   set sunset(DateTime value) {
     if (value.day != _currentTime.day ||
         value.month != _currentTime.month ||
-        value.year != _currentTime.year){
-
+        value.year != _currentTime.year) {
       throw Exception('Sunset must be on the same day as current time');
     }
 
-    if (value.isBefore(_sunrise))
-    {
+    if (value.isBefore(_sunrise)) {
       throw Exception('Sunset cannot be before sunrise');
     }
     _sunset = value;
   }
 
-
+  set description(String value) {
+    if (value.trim().isEmpty) {
+      throw Exception('Description cannot be empty');
+    }
+    _description = value;
+  }
 }
